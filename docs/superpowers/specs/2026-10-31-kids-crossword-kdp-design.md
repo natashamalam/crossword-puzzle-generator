@@ -10,7 +10,7 @@ process so further volumes can follow quickly.
 ## Constraints
 - Everything must be original or openly licensed (text, clues, art, fonts, word lists, code).
 - No third-party brand or product names in the title, keywords, clues or cover.
-- No invented claims about real entities (no fake reviews, awards or "bestseller" claims).
+- No invented claims about real entities (no fake reviews, awards or sales-rank claims).
 - Prefer open standards and open formats.
 
 ## Product spec (volume 1)

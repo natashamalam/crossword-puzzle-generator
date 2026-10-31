@@ -1,0 +1,32 @@
+# One term per line. Whole-word, case-insensitive. Mahjabin to review and extend.
+# Third-party brands/characters often attached to kids' products
+lego
+disney
+pixar
+pokemon
+nintendo
+minecraft
+roblox
+barbie
+marvel
+nickelodeon
+peppa
+bluey
+hasbro
+mattel
+sesame street
+paw patrol
+# Unverifiable or risky claims
+bestseller
+best seller
+award-winning
+number one
+guaranteed
+teacher approved
+doctor recommended
+clinically proven
+# AI tool names (project rule: no AI attribution in published work)
+claude
+anthropic
+chatgpt
+openai

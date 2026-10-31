@@ -16,7 +16,7 @@
 - Trim size 8.5 x 11 in; black-and-white interior; paperback; ~50 puzzles; grids 7x7 to 9x9.
 - Words 3-8 letters, uppercase A-Z only; one original clue per word.
 - Fonts SIL OFL only; list every third-party item in `THIRD_PARTY_NOTICES.md`.
-- No Claude/AI attribution in commits, files or metadata; commit author `Mahjabin Alam <ts.mahjabin.alam@gmail.com>`.
+- No AI-tool attribution lines in commits, files or metadata; commit author `Mahjabin Alam <ts.mahjabin.alam@gmail.com>`.
 - Working theme: **animals** (final title/theme confirmed in Task 0).
 
 ## Review Focus
