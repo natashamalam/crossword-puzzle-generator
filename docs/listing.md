@@ -30,7 +30,7 @@ The puzzles start small and get a little bigger as you go. Answers are included 
 3. easy crosswords ages 6-8
 4. kids activity book puzzles
 5. first crossword puzzles for children
-6. large print puzzle book for kids
+6. brain games for young kids
 7. word puzzles for young readers
 
 ## Categories (pick in KDP, verify availability)

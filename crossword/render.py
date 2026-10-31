@@ -108,6 +108,8 @@ def _puzzle_page(c: Canvas, p: Puzzle, number: int) -> None:
         clues_top = grid_top - p.size * cell - 28
         if need <= clues_top - BOTTOM:
             break
+    else:
+        raise ValueError(f"Puzzle {number}: clues do not fit on the page, shorten them")
     _draw_grid(c, p, left + (content - p.size * cell) / 2, grid_top, cell, letters=False)
     for i, (title, items) in enumerate(cols):
         x = left + i * (col_w + 20)

@@ -1,5 +1,7 @@
 from dataclasses import replace
 
+import pytest
+
 from pypdf import PdfReader
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
@@ -52,3 +54,10 @@ def test_long_clue_stays_inside_margins(tmp_path):
     for page in PdfReader(out).pages:
         page.extract_text(visitor_text=lambda t, cm, tm, fd, fs: xs.append(tm[4]) if t.strip() else None)
     assert xs and min(xs) >= 36 and max(xs) <= 612 - 36
+
+
+def test_clues_too_long_to_fit_raise_with_puzzle_number(tmp_path):
+    p = generate(ENTRIES, 9, seed=1)
+    p.placed[:] = [replace(pl, entry=Entry(pl.entry.word, "long clue words " * 10)) for pl in p.placed]
+    with pytest.raises(ValueError, match="Puzzle 1"):
+        render_interior([p], "Test Book", tmp_path / "i.pdf")
