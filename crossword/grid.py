@@ -105,20 +105,24 @@ def generate(entries: list[Entry], size: int, seed: int) -> Puzzle | None:
     placed = [(first, row, col, True)]
     used = {first.word}
 
-    for entry in pool[1:]:
-        if entry.word in used:
-            continue
-        options = _candidates(cells, entry.word, size)
-        rng.shuffle(options)
-        for r, c, across in options[:MAX_TRIES_PER_WORD]:
-            trial = _write(cells, entry.word, r, c, across)
-            expected = {(pr, pc, pa, e.word) for e, pr, pc, pa in placed}
-            expected.add((r, c, across, entry.word))
-            if _runs(trial) == expected:
-                cells = trial
-                placed.append((entry, r, c, across))
-                used.add(entry.word)
-                break
+    progress = True
+    while progress:  # new letters can open crossings for words skipped earlier
+        progress = False
+        for entry in pool[1:]:
+            if entry.word in used:
+                continue
+            options = _candidates(cells, entry.word, size)
+            rng.shuffle(options)
+            for r, c, across in options[:MAX_TRIES_PER_WORD]:
+                trial = _write(cells, entry.word, r, c, across)
+                expected = {(pr, pc, pa, e.word) for e, pr, pc, pa in placed}
+                expected.add((r, c, across, entry.word))
+                if _runs(trial) == expected:
+                    cells = trial
+                    placed.append((entry, r, c, across))
+                    used.add(entry.word)
+                    progress = True
+                    break
 
     if len(placed) < MIN_WORDS:
         return None
