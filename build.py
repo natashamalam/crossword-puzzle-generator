@@ -11,7 +11,7 @@ AUTHOR = "Mahjabin Alam"
 CLUES = Path(__file__).resolve().parent / "data" / "clues.csv"
 
 
-def build(out_dir: Path = Path("out"), count: int = 50) -> int:
+def build(out_dir: Path = Path("generated_content"), count: int = 50) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     puzzles = build_puzzles(load_entries(CLUES), count=count)
     pages = render_interior(puzzles, TITLE, out_dir / "interior.pdf", AUTHOR)
@@ -20,4 +20,4 @@ def build(out_dir: Path = Path("out"), count: int = 50) -> int:
 
 
 if __name__ == "__main__":
-    print(f"built {build()} pages -> out/interior.pdf, out/cover.pdf")
+    print(f"built {build()} pages -> generated_content/interior.pdf, generated_content/cover.pdf")

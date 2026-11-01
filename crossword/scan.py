@@ -29,7 +29,7 @@ def scan_text(paths: list[Path], banned: list[str]) -> list[str]:
 def main(argv: list[str]) -> int:
     banned = [t.strip() for t in BANNED_FILE.read_text(encoding="utf-8").splitlines()
               if t.strip() and not t.startswith("#")]
-    targets = [Path(a) for a in argv] or [ROOT / "data", ROOT / "docs", ROOT / "crossword", ROOT / "out"]
+    targets = [Path(a) for a in argv] or [ROOT / "data", ROOT / "docs", ROOT / "crossword", ROOT / "generated_content"]
     files = []
     for t in targets:
         found = [t] if t.is_file() else sorted(t.rglob("*")) if t.exists() else []

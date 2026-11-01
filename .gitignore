@@ -10,7 +10,7 @@ generated_content/
 
 # Planning, specs and agent scratch files
 .superpowers/
-docs/superpowers/
+docs/
 
 # OS
 .DS_Store
