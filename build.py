@@ -1,23 +1,21 @@
 from pathlib import Path
 
-from crossword.build_puzzles import build_puzzles
 from crossword.cover import render_cover
-from crossword.data import load_entries
 from crossword.render import render_interior
+from crossword.store import load_puzzles
 
-TITLE = "Animal Crosswords for Kids"  # placeholder: confirm title and run a trademark search first
+TITLE = "Category Crosswords for Kids"  # working title: search before publication
 SUBTITLE = "Easy Puzzles for Ages 6-8"
 AUTHOR = "Mahjabin Alam"
-CLUES = Path(__file__).resolve().parent / "data" / "clues.csv"
 
 
-def build(out_dir: Path = Path("out"), count: int = 50) -> int:
+def build(out_dir: Path = Path("generated_content"), puzzles_dir: Path = Path("data/puzzles")) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
-    puzzles = build_puzzles(load_entries(CLUES), count=count)
+    puzzles = load_puzzles(puzzles_dir)
     pages = render_interior(puzzles, TITLE, out_dir / "interior.pdf", AUTHOR)
     render_cover(TITLE, SUBTITLE, AUTHOR, pages, out_dir / "cover.pdf")
     return pages
 
 
 if __name__ == "__main__":
-    print(f"built {build()} pages -> out/interior.pdf, out/cover.pdf")
+    print(f"built {build()} pages -> generated_content/interior.pdf, generated_content/cover.pdf")
