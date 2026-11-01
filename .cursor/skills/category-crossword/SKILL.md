@@ -1,0 +1,1 @@
+../../../skills/category-crossword/SKILL.md

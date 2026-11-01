@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from crossword.data import Entry
 
@@ -22,6 +22,8 @@ class Puzzle:
     size: int
     cells: list[list[str]]
     placed: list[Placed]
+    mode: str = ""
+    starters: frozenset[tuple[int, int]] = field(default_factory=frozenset)
 
 
 def _runs(cells: list[list[str]]) -> set[tuple[int, int, bool, str]]:

@@ -1,6 +1,6 @@
 import pytest
 
-from crossword.data import Entry, load_entries
+from crossword.data import Entry, check_word, load_entries, validate_captions
 
 
 def write(tmp_path, body):
@@ -40,3 +40,31 @@ def test_length_bounds(tmp_path, word):
     p = write(tmp_path, f"{word},A clue\n")
     with pytest.raises(ValueError, match=word):
         load_entries(p)
+
+
+def test_check_word_accepts_letters_of_legal_length():
+    assert check_word("CROW") is None
+
+
+@pytest.mark.parametrize("word,message", [
+    ("TO", "TO: length must be 3-8"),
+    ("SEAHORSES", "SEAHORSES: length must be 3-8"),
+    ("CROW1", "CROW1: word must contain only letters A-Z"),
+])
+def test_check_word_rejects(word, message):
+    assert check_word(word) == message
+
+
+def test_duplicate_caption_in_one_category_raises():
+    entries = [
+        Entry("CROW", "A black bird", "bird"),
+        Entry("SWAN", "A black bird", "bird"),
+    ]
+    with pytest.raises(ValueError, match="caption repeats"):
+        validate_captions(entries)
+
+
+def test_caption_over_six_words_raises():
+    clue = "A very long caption with extra words"
+    with pytest.raises(ValueError, match="longer than 6 words"):
+        validate_captions([Entry("CROW", clue, "bird")])

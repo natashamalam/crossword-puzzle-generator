@@ -1,0 +1,24 @@
+# Sync Claude skill and command instructions to Grok
+
+Claude and Grok use one instruction text for the category crossword skill and command. A change made for Claude is the change Grok follows.
+
+Edit only the canonical files:
+
+- `skills/category-crossword/SKILL.md`
+- `skills/category-crossword/COMMAND.md`
+
+These paths are symlinks to those files, not separate copies:
+
+- `.claude/skills/category-crossword/SKILL.md`
+- `.cursor/skills/category-crossword/SKILL.md`
+- `.claude/commands/category-crossword.md`
+- `.cursor/commands/category-crossword.md`
+
+When a Claude skill or command instruction changes, update the canonical file in that same change. Leave the symlinks in place so Grok reads the updated text.
+
+```text
+Bad:  edit .claude/skills/category-crossword/SKILL.md and leave a different copy under .cursor/
+Good: edit skills/category-crossword/SKILL.md, which both apps link to
+```
+
+If a path above is a real file with different text, replace it with the canonical text before finishing.
