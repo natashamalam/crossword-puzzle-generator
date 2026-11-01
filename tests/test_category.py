@@ -1,7 +1,12 @@
+import json
+from dataclasses import replace
+
 import pytest
 
-from crossword.category import draft_puzzle, mode_for_next
+from crossword.category import apply_draft, draft_puzzle, mode_for_next
 from crossword.data import Entry
+from crossword.store import load_puzzle, save_puzzle
+from tests.test_grid import hand_puzzle
 
 MIN_PNG = (
     b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
@@ -52,3 +57,57 @@ def test_empty_image_reuses_approved_art(tmp_path):
     draft = draft_puzzle(items, "easy", 0, seed=1, art_dir=art)
     assert draft["placed"]
     assert all(item["image"] == str(art / f"{item['word']}.png") for item in draft["placed"])
+
+
+def test_apply_without_approved_changes_nothing(tmp_path):
+    draft = tmp_path / "draft.json"
+    draft.write_text("{}", encoding="utf-8")
+    puzzles, art, out = tmp_path / "puzzles", tmp_path / "art", tmp_path / "out"
+    with pytest.raises(SystemExit):
+        apply_draft(draft, puzzles, art, out, approved=False)
+    assert not puzzles.exists() and not art.exists() and not out.exists()
+
+
+def test_apply_stops_when_caption_differs(tmp_path):
+    puzzles, art, out = tmp_path / "puzzles", tmp_path / "art", tmp_path / "out"
+    puzzles.mkdir()
+    stored = hand_puzzle(8, [("CAT", 0, 0, True)])
+    stored.placed[0] = replace(stored.placed[0], entry=Entry("CAT", "A small pet", "animal", ""))
+    save_puzzle(puzzles / "001.json", stored)
+    png = tmp_path / "CAT.png"
+    png.write_bytes(MIN_PNG)
+    draft = tmp_path / "draft.json"
+    draft.write_text(json.dumps({
+        "mode": "easy",
+        "size": 8,
+        "cells": [["."] * 8 for _ in range(8)],
+        "starters": [],
+        "placed": [{
+            "word": "CAT",
+            "clue": "A barn pet",
+            "category": "animal",
+            "image": str(png),
+            "row": 0,
+            "col": 0,
+            "across": True,
+            "number": 1,
+        }],
+    }), encoding="utf-8")
+    with pytest.raises(ValueError, match="which version to keep"):
+        apply_draft(draft, puzzles, art, out, approved=True)
+    assert load_puzzle(puzzles / "001.json").placed[0].entry.clue == "A small pet"
+
+
+def test_apply_copies_puzzle_art_and_pdfs(tmp_path):
+    png = tmp_path / "h.png"
+    png.write_bytes(MIN_PNG)
+    items = [Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS]
+    body = draft_puzzle(items, "easy", 0, seed=1)
+    draft = tmp_path / "draft.json"
+    draft.write_text(json.dumps(body), encoding="utf-8")
+    puzzles, art, out = tmp_path / "puzzles", tmp_path / "art", tmp_path / "out"
+    pages = apply_draft(draft, puzzles, art, out, approved=True)
+    assert (puzzles / "001.json").exists()
+    assert (art / "DOG.png").read_bytes() == MIN_PNG
+    assert (out / "interior.pdf").exists() and (out / "cover.pdf").exists()
+    assert pages >= 24
