@@ -111,3 +111,44 @@ def test_apply_copies_puzzle_art_and_pdfs(tmp_path):
     assert (art / "DOG.png").read_bytes() == MIN_PNG
     assert (out / "interior.pdf").exists() and (out / "cover.pdf").exists()
     assert pages >= 24
+
+
+def test_named_mode_refuses_puzzle_51(tmp_path):
+    png = tmp_path / "h.png"
+    png.write_bytes(MIN_PNG)
+    items = [Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS]
+    with pytest.raises(ValueError, match="50"):
+        draft_puzzle(items, "easy", 50, seed=1)
+
+
+def test_apply_refuses_puzzle_51(tmp_path):
+    puzzles = tmp_path / "puzzles"
+    puzzles.mkdir()
+    stored = hand_puzzle(8, [("CAT", 0, 0, True)])
+    for n in range(1, 51):
+        save_puzzle(puzzles / f"{n:03d}.json", stored)
+    png = tmp_path / "h.png"
+    png.write_bytes(MIN_PNG)
+    body = draft_puzzle([Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS], "easy", 0, seed=1)
+    draft = tmp_path / "draft.json"
+    draft.write_text(json.dumps(body), encoding="utf-8")
+    with pytest.raises(ValueError, match="50"):
+        apply_draft(draft, puzzles, tmp_path / "art", tmp_path / "out", approved=True)
+    assert not (puzzles / "051.json").exists()
+
+
+def test_apply_leaves_no_puzzle_when_render_fails(tmp_path, monkeypatch):
+    png = tmp_path / "h.png"
+    png.write_bytes(MIN_PNG)
+    items = [Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS]
+    draft = tmp_path / "draft.json"
+    draft.write_text(json.dumps(draft_puzzle(items, "easy", 0, seed=1)), encoding="utf-8")
+    puzzles = tmp_path / "puzzles"
+
+    def boom(*_args, **_kwargs):
+        raise ValueError("Puzzle 1: clues do not fit on the page, shorten them")
+
+    monkeypatch.setattr("build.render_interior", boom)
+    with pytest.raises(ValueError, match="do not fit"):
+        apply_draft(draft, puzzles, tmp_path / "art", tmp_path / "out", approved=True)
+    assert not puzzles.exists() or not list(puzzles.glob("*.json"))

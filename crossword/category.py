@@ -1,5 +1,7 @@
 import argparse
 import json
+import shutil
+import tempfile
 from pathlib import Path
 
 from crossword.data import Entry, check_word, validate_captions
@@ -45,6 +47,8 @@ def draft_puzzle(
     seed: int,
     art_dir: Path | None = None,
 ) -> dict:
+    if approved_count >= 50:
+        raise ValueError("book already has 50 puzzles")
     rejected: list[str] = []
     accepted: list[Entry] = []
     seen: set[str] = set()
@@ -121,6 +125,8 @@ def apply_draft(
         raise SystemExit(2)
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     existing = load_puzzles(puzzles_dir)
+    if len(existing) >= 50:
+        raise ValueError("book already has 50 puzzles")
     stored = {pl.entry.word: pl.entry for puzzle in existing for pl in puzzle.placed}
     for item in draft["placed"]:
         word = item["word"]
@@ -136,20 +142,45 @@ def apply_draft(
             and approved_png.read_bytes() != source.read_bytes()
         ):
             raise ValueError(f"{word}: which version to keep")
-    images: dict[str, str] = {}
-    art_dir.mkdir(parents=True, exist_ok=True)
-    for item in draft["placed"]:
-        word = item["word"]
-        dest = art_dir / f"{word}.png"
-        source = Path(item.get("image", ""))
-        if source.is_file() and source.resolve() != dest.resolve():
-            dest.write_bytes(source.read_bytes())
-        images[word] = str(dest)
-    puzzles_dir.mkdir(parents=True, exist_ok=True)
-    save_puzzle(puzzles_dir / f"{len(existing) + 1:03d}.json", _puzzle_from_draft(draft, images))
     from build import build
 
-    return build(out_dir, puzzles_dir)
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_root = Path(tmp)
+        tmp_puzzles = tmp_root / "puzzles"
+        tmp_art = tmp_root / "art"
+        tmp_out = tmp_root / "out"
+        tmp_puzzles.mkdir()
+        tmp_art.mkdir()
+        if puzzles_dir.is_dir():
+            for path in sorted(puzzles_dir.glob("*.json")):
+                shutil.copy(path, tmp_puzzles / path.name)
+        images = {}
+        for item in draft["placed"]:
+            word = item["word"]
+            source = Path(item.get("image", ""))
+            dest = tmp_art / f"{word}.png"
+            if source.is_file():
+                dest.write_bytes(source.read_bytes())
+            images[word] = str(dest)
+        save_puzzle(tmp_puzzles / f"{len(existing) + 1:03d}.json", _puzzle_from_draft(draft, images))
+        pages = build(tmp_out, tmp_puzzles)
+        art_dir.mkdir(parents=True, exist_ok=True)
+        final_images = {}
+        for word, src in images.items():
+            final = art_dir / f"{word}.png"
+            source = Path(src)
+            if source.is_file() and source.resolve() != final.resolve():
+                final.write_bytes(source.read_bytes())
+            final_images[word] = str(final)
+        puzzles_dir.mkdir(parents=True, exist_ok=True)
+        save_puzzle(
+            puzzles_dir / f"{len(existing) + 1:03d}.json",
+            _puzzle_from_draft(draft, final_images),
+        )
+        out_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy(tmp_out / "interior.pdf", out_dir / "interior.pdf")
+        shutil.copy(tmp_out / "cover.pdf", out_dir / "cover.pdf")
+    return pages
 
 
 def main(argv: list[str] | None = None) -> int:

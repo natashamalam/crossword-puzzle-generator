@@ -65,7 +65,7 @@ def test_long_clue_stays_inside_margins(tmp_path):
 
 def test_clues_too_long_to_fit_raise_with_puzzle_number(tmp_path):
     p = generate(ENTRIES, 9, seed=1)
-    p.placed[:] = [replace(pl, entry=Entry(pl.entry.word, "long clue words " * 10)) for pl in p.placed]
+    p.placed[:] = [replace(pl, entry=Entry(pl.entry.word, "word " * 800)) for pl in p.placed]
     with pytest.raises(ValueError, match="Puzzle 1"):
         render_interior([p], "Test Book", tmp_path / "i.pdf")
 
@@ -94,3 +94,20 @@ def test_puzzle_page_shows_mode_caption_and_image(tmp_path):
     assert len(puzzle_page.images) >= 1
     solution = next(p for p in reader.pages if "Solutions" in (p.extract_text() or ""))
     assert len(solution.images) == 0
+
+
+def test_hard_puzzle_with_six_picture_clues_prints(tmp_path):
+    png = tmp_path / "a.png"
+    png.write_bytes(MIN_PNG)
+    words = ["CROW", "SWAN", "DOVE", "FINCH", "CRANE", "ROBIN"]
+    placed = []
+    cells = [["."] * 9 for _ in range(9)]
+    for i, word in enumerate(words):
+        placed.append(Placed(Entry(word, f"A test bird {word.lower()}", "bird", str(png)), i, 0, True, i + 1))
+        for j, ch in enumerate(word):
+            cells[i][j] = ch
+    puzzle = Puzzle(9, cells, placed, mode="hard")
+    out = tmp_path / "i.pdf"
+    render_interior([puzzle], "Category Crosswords for Kids", out)
+    text = " ".join((page.extract_text() or "") for page in PdfReader(out).pages)
+    assert "Hard" in text and "A test bird crow" in text

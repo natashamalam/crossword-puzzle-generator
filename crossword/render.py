@@ -106,44 +106,102 @@ def _column_need(items, leading: float) -> float:
     return total + 8
 
 
-def _puzzle_page(c: Canvas, p: Puzzle, number: int) -> None:
-    left, right = _margins(c.getPageNumber())
-    content = W - left - right
-    col_w = (content - 20) / 2
-    label = MODE_LABEL.get(p.mode, "")
-    title = f"Puzzle {number} · {label}" if label else f"Puzzle {number}"
-    c.setFont(FONT, 26)
-    c.drawCentredString(left + content / 2, H - TOP - 26, title)
-    grid_top = H - TOP - 50
-    for size, cell in LAYOUTS:
-        leading = size * 1.3
-        cols = _clue_columns(p, size, col_w)
-        need = max(_column_need(items, leading) for _, items in cols)
-        clues_top = grid_top - p.size * cell - 28
-        if need <= clues_top - BOTTOM:
-            break
-    else:
-        raise ValueError(f"Puzzle {number}: clues do not fit on the page, shorten them")
-    _draw_grid(c, p, left + (content - p.size * cell) / 2, grid_top, cell, letters=False)
+def _row_height(lines: list[str], image: str, leading: float) -> float:
+    return max(len(lines) * leading, 58 if image else len(lines) * leading)
+
+
+def _pack(items, budget: float, leading: float):
+    used = leading + 4
+    kept, rest = [], []
+    for item in items:
+        height = _row_height(item[1], item[2], leading) + 4
+        if used + height > budget:
+            rest.append(item)
+            continue
+        kept.append(item)
+        used += height
+    return kept, rest
+
+
+def _draw_clue_columns(c: Canvas, cols, left: float, col_w: float, y: float, size: int, leading: float) -> None:
     for i, (title, items) in enumerate(cols):
         x = left + i * (col_w + 20)
-        y = clues_top
+        yy = y
         c.setFont(FONT, size + 2)
-        c.drawString(x, y, title)
-        y -= leading + 4
+        c.drawString(x, yy, title)
+        yy -= leading + 4
         c.setFont(FONT, size)
         for num, lines, image in items:
-            row = max(len(lines) * leading, 58 if image else len(lines) * leading)
-            c.drawString(x, y, num)
+            c.drawString(x, yy, num)
             if image:
-                c.drawImage(image, x + 22, y - 40, 54, 54, mask="auto", preserveAspectRatio=True)
+                c.drawImage(image, x + 22, yy - 40, 54, 54, mask="auto", preserveAspectRatio=True)
             text_x = x + 80 if image else x + 22
-            line_y = y
+            line_y = yy
             for line in lines:
                 c.drawString(text_x, line_y, line)
                 line_y -= leading
-            y -= row + 4
-    _footer(c)
+            yy -= _row_height(lines, image, leading) + 4
+
+
+def _puzzle_page(c: Canvas, p: Puzzle, number: int) -> None:
+    label = MODE_LABEL.get(p.mode, "")
+    title = f"Puzzle {number} · {label}" if label else f"Puzzle {number}"
+    size, cell = LAYOUTS[0]
+    for try_size, try_cell in LAYOUTS:
+        left, right = _margins(c.getPageNumber())
+        content = W - left - right
+        col_w = (content - 20) / 2
+        leading = try_size * 1.3
+        cols = _clue_columns(p, try_size, col_w)
+        clues_top = H - TOP - 50 - p.size * try_cell - 28
+        if max(_column_need(items, leading) for _, items in cols) <= clues_top - BOTTOM:
+            size, cell = try_size, try_cell
+            break
+    left, right = _margins(c.getPageNumber())
+    content = W - left - right
+    col_w = (content - 20) / 2
+    leading = size * 1.3
+    cols = _clue_columns(p, size, col_w)
+    pending = [items for _, items in cols]
+    titles = [title for title, _ in cols]
+    first = True
+    while True:
+        if not first:
+            c.showPage()
+            left, right = _margins(c.getPageNumber())
+            content = W - left - right
+            col_w = (content - 20) / 2
+        grid_top = H - TOP - 50
+        clues_top = grid_top - p.size * cell - 28 if first else H - TOP - 70
+        budget = clues_top - BOTTOM
+        packed, nxt = [], []
+        stuck = False
+        for items in pending:
+            kept, rest = _pack(items, budget, leading)
+            if items and not kept:
+                if first:
+                    nxt.append(items)
+                    packed.append([])
+                    continue
+                stuck = True
+                break
+            packed.append(kept)
+            nxt.append(rest)
+        if stuck:
+            raise ValueError(f"Puzzle {number}: clues do not fit on the page, shorten them")
+        c.setFont(FONT, 26)
+        heading = title if first else f"Puzzle {number} continued"
+        c.drawCentredString(left + content / 2, H - TOP - 26, heading)
+        if first:
+            _draw_grid(c, p, left + (content - p.size * cell) / 2, grid_top, cell, letters=False)
+        _draw_clue_columns(
+            c, list(zip(titles, packed)), left, col_w, clues_top, size, leading
+        )
+        _footer(c)
+        pending = nxt
+        first = False
+        if not any(pending):
+            return
 
 
 def _solution_pages(c: Canvas, puzzles: list[Puzzle]) -> None:
