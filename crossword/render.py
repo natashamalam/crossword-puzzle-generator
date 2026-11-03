@@ -6,6 +6,7 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen.canvas import Canvas
 
+from crossword.alternates import accepted_alternates
 from crossword.grid import EMPTY, Puzzle
 
 FONT = "Andika"
@@ -25,7 +26,6 @@ HOW_TO_PLAY = [
     "5. Stuck? Skip it and come back later. The answers are at the back of the book.",
 ]
 
-MODE_LABEL = {"easy": "Easy", "medium": "Medium", "hard": "Hard"}
 
 
 def register_fonts() -> None:
@@ -144,8 +144,7 @@ def _draw_clue_columns(c: Canvas, cols, left: float, col_w: float, y: float, siz
 
 
 def _puzzle_page(c: Canvas, p: Puzzle, number: int) -> None:
-    label = MODE_LABEL.get(p.mode, "")
-    title = f"Puzzle {number} · {label}" if label else f"Puzzle {number}"
+    title = f"Puzzle {number}"
     size, cell = LAYOUTS[0]
     for try_size, try_cell in LAYOUTS:
         left, right = _margins(c.getPageNumber())
@@ -204,7 +203,7 @@ def _puzzle_page(c: Canvas, p: Puzzle, number: int) -> None:
             return
 
 
-def _solution_pages(c: Canvas, puzzles: list[Puzzle]) -> None:
+def _solution_pages(c: Canvas, puzzles: list[Puzzle], alternates: dict[str, list[str]] | None = None) -> None:
     for start in range(0, len(puzzles), PUZZLES_PER_SOLUTION_PAGE):
         left, right = _margins(c.getPageNumber())
         content = W - left - right
@@ -218,6 +217,14 @@ def _solution_pages(c: Canvas, puzzles: list[Puzzle]) -> None:
             c.setFont(FONT, 14)
             c.drawString(qx, qy, f"Puzzle {start + i + 1}")
             _draw_grid(c, p, qx, qy - 12, cell, letters=True)
+            extra = accepted_alternates(p, alternates or {})
+            if extra:
+                text = "Also accepted: " + ", ".join(
+                    f"{num} {'across' if across else 'down'} {' or '.join(alts)}" for num, across, alts in extra
+                )
+                c.setFont(FONT, 9)
+                for k, line in enumerate(wrap_text(text, FONT, 9, half - 20)):
+                    c.drawString(qx, qy - 12 - p.size * cell - 14 - k * 11, line)
         _footer(c)
         c.showPage()
 
@@ -230,7 +237,13 @@ def _centered_lines(c: Canvas, lines: list[str], size: float, y: float, leading:
     return y
 
 
-def render_interior(puzzles: list[Puzzle], title: str, out: Path, author: str = "Mahjabin Alam") -> int:
+def render_interior(
+    puzzles: list[Puzzle],
+    title: str,
+    out: Path,
+    author: str = "Mahjabin Alam",
+    alternates: dict[str, list[str]] | None = None,
+) -> int:
     register_fonts()
     c = Canvas(str(out), pagesize=(W, H))
     c.setTitle(title)
@@ -271,7 +284,7 @@ def render_interior(puzzles: list[Puzzle], title: str, out: Path, author: str = 
     for n, p in enumerate(puzzles, 1):
         _puzzle_page(c, p, n)
         c.showPage()
-    _solution_pages(c, puzzles)
+    _solution_pages(c, puzzles, alternates)
 
     pages = c.getPageNumber() - 1
     target = max(MIN_PAGES, pages + pages % 2)

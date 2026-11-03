@@ -1,11 +1,11 @@
 ---
 name: category-crossword
-description: Draft a category crossword for Category Crosswords for Kids, show it for approval, and add it to the book only after approval. Use when the user gives categories and items, such as bird and sparrow, or asks for a category crossword.
+description: Draft a category crossword for Memory Boost Crosswords for Kids, show it for approval, and add it to the book only after approval. Use when the user gives categories and items, such as bird and sparrow, or asks for a category crossword.
 ---
 
 # Category crossword
 
-Build one puzzle for Category Crosswords for Kids from the categories and items the user gives. Easy, medium, and hard all use this same command.
+Build one puzzle for Memory Boost Crosswords for Kids from the categories and items the user gives. Easy, medium, and hard all use this same command.
 
 ## Draft
 
@@ -34,9 +34,9 @@ That writes the puzzle, copies new pictures into `art/hints/`, and rebuilds `gen
 
 ## Modes
 
-If the user names a mode, use it. Otherwise the book assigns puzzles 1–20 easy, 21–35 medium, and 36–50 hard. The book stops at 50 puzzles.
+If the user names a mode, use it. Otherwise the book assigns puzzles 1–20 easy, 21–35 medium, and 36–50 hard. The book stops at 100 puzzles.
 
-Easy shows the first letter of every word and, for a word of 6–8 letters, the middle letter. Medium shows the middle letter of every word. Hard shows the middle letter of every other word and still leaves at least one word with no starter letter.
+Easy shows the first letter of every word and, for a word of 5–8 letters, the middle letter. Medium shows the middle letter of every word. Hard shows the fewest letters that put at least one letter in every word, using crossing letters where it can, and also shows the middle letter of every 7–8 letter word. No word is left with no letter.
 
 ## One instruction text
 

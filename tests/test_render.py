@@ -90,7 +90,7 @@ def test_puzzle_page_shows_mode_caption_and_image(tmp_path):
     assert "Use the picture, the caption, and any letters already in the grid." in how
     puzzle_page = reader.pages[3]
     text = puzzle_page.extract_text()
-    assert "Easy" in text and "A black bird" in text
+    assert "Puzzle 1" in text and "Easy" not in text and "A black bird" in text
     assert len(puzzle_page.images) >= 1
     solution = next(p for p in reader.pages if "Solutions" in (p.extract_text() or ""))
     assert len(solution.images) == 0
@@ -110,4 +110,4 @@ def test_hard_puzzle_with_six_picture_clues_prints(tmp_path):
     out = tmp_path / "i.pdf"
     render_interior([puzzle], "Category Crosswords for Kids", out)
     text = " ".join((page.extract_text() or "") for page in PdfReader(out).pages)
-    assert "Hard" in text and "A test bird crow" in text
+    assert "Hard" not in text and "A test bird crow" in text

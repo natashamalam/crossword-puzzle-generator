@@ -5,17 +5,18 @@ import tempfile
 from pathlib import Path
 
 from crossword.data import Entry, check_word, validate_captions
-from crossword.grid import Placed, Puzzle, generate
+from crossword.grid import MIN_WORDS, Placed, Puzzle, generate
 from crossword.starters import starter_cells
 from crossword.store import load_puzzles, save_puzzle
 
 SIZES = {"easy": 7, "medium": 8, "hard": 9}
+MAX_PUZZLES = 100
 
 
 def mode_for_next(approved_count: int) -> str:
     number = approved_count + 1
-    if number > 50:
-        raise ValueError("book already has 50 puzzles")
+    if number > MAX_PUZZLES:
+        raise ValueError(f"book already has {MAX_PUZZLES} puzzles")
     if number <= 20:
         return "easy"
     if number <= 35:
@@ -46,9 +47,11 @@ def draft_puzzle(
     approved_count: int,
     seed: int,
     art_dir: Path | None = None,
+    min_words: int | None = None,
+    free_start: bool = False,
 ) -> dict:
-    if approved_count >= 50:
-        raise ValueError("book already has 50 puzzles")
+    if approved_count >= MAX_PUZZLES:
+        raise ValueError(f"book already has {MAX_PUZZLES} puzzles")
     rejected: list[str] = []
     accepted: list[Entry] = []
     seen: set[str] = set()
@@ -73,7 +76,7 @@ def draft_puzzle(
     if mode is None:
         mode = mode_for_next(approved_count)
     size = grid_size(mode)
-    puzzle = generate(accepted, size, seed)
+    puzzle = generate(accepted, size, seed, min_words or MIN_WORDS, free_start)
     if puzzle is None:
         raise ValueError("not enough words to build a puzzle")
     placed_words = {pl.entry.word for pl in puzzle.placed}
@@ -125,8 +128,8 @@ def apply_draft(
         raise SystemExit(2)
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     existing = load_puzzles(puzzles_dir)
-    if len(existing) >= 50:
-        raise ValueError("book already has 50 puzzles")
+    if len(existing) >= MAX_PUZZLES:
+        raise ValueError(f"book already has {MAX_PUZZLES} puzzles")
     stored = {pl.entry.word: pl.entry for puzzle in existing for pl in puzzle.placed}
     for item in draft["placed"]:
         word = item["word"]
@@ -206,6 +209,8 @@ def main(argv: list[str] | None = None) -> int:
             len(load_puzzles(Path("data/puzzles"))),
             args.seed,
             Path("art/hints"),
+            request.get("min_words"),
+            bool(request.get("free_start")),
         )
         out = Path("drafts") / f"{args.id}.json"
         out.parent.mkdir(parents=True, exist_ok=True)

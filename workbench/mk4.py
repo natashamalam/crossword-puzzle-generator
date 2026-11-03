@@ -1,0 +1,25 @@
+import json
+ex=set(json.load(open('ex_h3.json')))
+for f in ('ht1.json.out','ht3.json.out'):
+    for r in json.load(open(f)):
+        if r[0] in ('Kitchen B','Garden B','Pantry') and f=='ht1.json.out': continue
+        ex|=set(r[1])
+json.dump(sorted(ex),open('ex_h4.json','w')); print(len(ex))
+T=[
+["Birds II",5,0,"","OWL EAGLE PARROT PENGUIN OSTRICH SWAN PEACOCK CROW DUCK GOOSE TURKEY"],
+["Flowers",5,0,"","DAISY ORCHID LOTUS VIOLET JASMINE PANSY TULIP ROSE LILY"],
+["Sea II",5,0,"","WHALE SHARK CRAB OCTOPUS SEAL SHELL REEF ANCHOR WAVE"],
+["Bakery",5,0,"","BREAD CAKE COOKIE BAGEL DONUT PIE CRUMB OVEN"],
+["Music II",5,0,"","PIANO VIOLIN BANJO CELLO TUBA BELLS SONG DANCE"],
+["Insects II",6,0,"","SPIDER WASP SNAIL BEETLE BEE ANT BUG FLY WORM NEST"],
+["Mammals",6,0,"","LION BEAR ZEBRA MONKEY PANDA KOALA OTTER SEAL RACCOON DEER MOUSE"],
+["Trees",6,0,"","OAK PINE MAPLE BIRCH WILLOW PALM ROOT LEAF BRANCH TRUNK BARK"],
+["Rooms",6,0,"","KITCHEN GARAGE ATTIC CELLAR PORCH HALL DEN LOFT"],
+["Tools 2",6,0,"","HAMMER WRENCH PLIERS LADDER AXE SHOVEL BUCKET CHISEL"],
+["Vehicles 2",6,0,"","BIKE SCOOTER BUS TRAIN SHIP CAR TRAM SUBWAY HELMET"],
+["Seasons",6,0,"","SNOW KITE LEAF SUN SNOWMAN PUMPKIN FLOWER SCARECROW"],
+["Treasure",6,0,"","MAP PIRATE CHEST COIN CROWN RUBY GOLD SWORD PARROT"],
+["Fruit II",6,0,"","APPLE GRAPE MANGO MELON PLUM PEAR PAPAYA APRICOT"],
+["Body",6,0,"","HAND FOOT EAR NOSE EYE MOUTH TOOTH ELBOW KNEE THUMB"],
+]
+json.dump(T,open('ht4.json','w'))

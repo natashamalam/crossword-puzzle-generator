@@ -35,7 +35,7 @@ Each run makes **one** puzzle from the categories and items you give it, for exa
 1. **Draft.** The agent writes a short caption for each item, draws an original black-and-white cartoon, and runs `python -m crossword.category draft`. It then shows you the mode, every placed word with its caption and picture, any words left out, and the grid. It stops there.
 2. **Apply.** Only after you approve in a later message does it run `python -m crossword.category apply drafts/<id>.json --approved`. That saves the puzzle, copies new pictures into `art/hints/`, and rebuilds `generated_content/interior.pdf` and `cover.pdf`.
 
-The mode (easy, medium or hard) follows the puzzle's position in the book: 1-20 easy, 21-35 medium, 36-50 hard. The book stops at 50 puzzles. You can name a mode to override this.
+The mode (easy, medium or hard) follows the puzzle's position in the book: 1-20 easy, 21-35 medium, 36-50 hard. The book stops at 100 puzzles. You can name a mode to override this.
 
 ### Invoke in Claude Code
 

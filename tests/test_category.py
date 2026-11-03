@@ -27,8 +27,9 @@ def test_mode_follows_approved_count():
     assert mode_for_next(34) == "medium"
     assert mode_for_next(35) == "hard"
     assert mode_for_next(49) == "hard"
-    with pytest.raises(ValueError, match="50"):
-        mode_for_next(50)
+    assert mode_for_next(99) == "hard"
+    with pytest.raises(ValueError, match="100"):
+        mode_for_next(100)
 
 
 def test_easy_draft_leaves_out_a_word_longer_than_the_grid(tmp_path):
@@ -117,24 +118,24 @@ def test_named_mode_refuses_puzzle_51(tmp_path):
     png = tmp_path / "h.png"
     png.write_bytes(MIN_PNG)
     items = [Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS]
-    with pytest.raises(ValueError, match="50"):
-        draft_puzzle(items, "easy", 50, seed=1)
+    with pytest.raises(ValueError, match="100"):
+        draft_puzzle(items, "easy", 100, seed=1)
 
 
 def test_apply_refuses_puzzle_51(tmp_path):
     puzzles = tmp_path / "puzzles"
     puzzles.mkdir()
     stored = hand_puzzle(8, [("CAT", 0, 0, True)])
-    for n in range(1, 51):
+    for n in range(1, 101):
         save_puzzle(puzzles / f"{n:03d}.json", stored)
     png = tmp_path / "h.png"
     png.write_bytes(MIN_PNG)
     body = draft_puzzle([Entry(w, f"A test clue for {w.lower()}", "bird", str(png)) for w in WORDS], "easy", 0, seed=1)
     draft = tmp_path / "draft.json"
     draft.write_text(json.dumps(body), encoding="utf-8")
-    with pytest.raises(ValueError, match="50"):
+    with pytest.raises(ValueError, match="100"):
         apply_draft(draft, puzzles, tmp_path / "art", tmp_path / "out", approved=True)
-    assert not (puzzles / "051.json").exists()
+    assert not (puzzles / "101.json").exists()
 
 
 def test_apply_leaves_no_puzzle_when_render_fails(tmp_path, monkeypatch):
