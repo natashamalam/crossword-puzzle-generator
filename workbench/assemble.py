@@ -17,8 +17,8 @@ for i in range(1,21):
     pid=f"easy-{i:02d}"; d=f"drafts/{pid}"; os.makedirs(d,exist_ok=True)
     items=[]
     for w in words:
-        c=C(); D[w](c); c.save(f"{d}/{w}.png")
-        items.append({"word":w,"category":CAPS[w][0],"caption":CAPS[w][1],"image":f"{d}/{w}.png"})
+        c=C(); D[w](c); os.makedirs("hint_images", exist_ok=True); c.save(f"hint_images/{w}.png")
+        items.append({"word":w,"category":CAPS[w][0],"caption":CAPS[w][1],"image":f"hint_images/{w}.png"})
     json.dump({"mode":"easy","min_words":len(words),"items":items},open(f"{d}/request.json","w"),indent=2)
     r=subprocess.run([".venv/bin/python","-m","crossword.category","draft","--input",f"{d}/request.json","--seed",str(seed),"--id",pid],capture_output=True,text=True)
     print(pid,len(words),seed,r.stdout.strip(),r.stderr.strip()[-200:])

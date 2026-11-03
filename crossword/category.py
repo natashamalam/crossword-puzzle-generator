@@ -208,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
             request.get("mode"),
             len(load_puzzles(Path("data/puzzles"))),
             args.seed,
-            Path("art/hints"),
+            Path("hint_images"),
             request.get("min_words"),
             bool(request.get("free_start")),
         )
@@ -220,7 +220,7 @@ def main(argv: list[str] | None = None) -> int:
     pages = apply_draft(
         args.draft,
         Path("data/puzzles"),
-        Path("art/hints"),
+        Path("hint_images"),
         Path("generated_content"),
         args.approved,
     )

@@ -12,7 +12,7 @@ Build one puzzle for Memory Boost Crosswords for Kids from the categories and it
 1. Turn the user's list into `request.json`. Each item has `word`, `category`, `caption`, and `image`.
 2. Write a caption of at most 6 words. Name the category and the fact that separates this item from the others in that category. CROW is `A black bird`. SWAN is `A white bird with a long neck`. SPARROW is `A small brown bird`.
 3. Draw one original still black-and-white cartoon for each new word. Use bold outlines, flat shapes, and a white background. Put no letters or numbers in the picture. The picture contains no real person's face, likeness, photograph, child, name, address, or school.
-4. Save the cartoon as `drafts/<id>/<WORD>.png` and put that path in `image`. If `art/hints/<WORD>.png` already exists, reuse it and leave `image` empty.
+4. Save the cartoon as `hint_images/<WORD>.png`, always in the `hint_images/` folder at the repo root, never in `drafts/`, a scratchpad or anywhere else, and put that path in `image`. If `hint_images/<WORD>.png` already exists, reuse it and leave `image` empty.
 5. Run:
 
 ```text
@@ -30,7 +30,7 @@ pass `--approved` only after Mahjabin approves the draft in a later reply. Then 
 python -m crossword.category apply drafts/<id>.json --approved
 ```
 
-That writes the puzzle, copies new pictures into `art/hints/`, and rebuilds `generated_content/interior.pdf` and `generated_content/cover.pdf`.
+That writes the puzzle, keeps the pictures in `hint_images/`, and rebuilds `generated_content/interior.pdf` and `generated_content/cover.pdf`.
 
 ## Modes
 

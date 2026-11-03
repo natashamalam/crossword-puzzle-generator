@@ -25,8 +25,8 @@ for i, s in enumerate(sets, 1):
     assert seed, (i, s['title'], 'no seed')
     items = []
     for w in words:
-        c = C(); D[w](c); c.save(f"{d}/{w}.png")
-        items.append({"word": w, "category": CAPS[w][0], "caption": CAPS[w][1], "image": f"{d}/{w}.png"})
+        c = C(); D[w](c); os.makedirs("hint_images", exist_ok=True); c.save(f"hint_images/{w}.png")
+        items.append({"word": w, "category": CAPS[w][0], "caption": CAPS[w][1], "image": f"hint_images/{w}.png"})
     json.dump({"mode": mode, "min_words": len(words), "free_start": True, "items": items}, open(f"{d}/request.json", "w"), indent=2)
     r = subprocess.run([".venv/bin/python", "-m", "crossword.category", "draft", "--input", f"{d}/request.json", "--seed", str(seed), "--id", pid], capture_output=True, text=True)
     print(pid, s['title'], mode, len(words), seed, r.stdout.strip()[:80], r.stderr.strip()[-200:], flush=True)

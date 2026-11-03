@@ -11,7 +11,7 @@ CAPS = {**CAPS_H, **CAPS_K}
 D = {}
 for m in ("art_h1", "art_h2", "art_h3", "art_h4", "art_h5", "art_h6", "art_k9"): D.update(importlib.import_module(m).D)
 def png(w):
-    p = f"art/hints/{w}.png"; c = C(); D[w](c); c.save(p); return p
+    p = f"hint_images/{w}.png"; c = C(); D[w](c); c.save(p); return p
 
 def inplace(num, old, new):
     f = f"data/puzzles/{num}.json"; d = json.load(open(f))
@@ -22,7 +22,7 @@ def inplace(num, old, new):
         assert d['cells'][r][c] in (old[i], ch) and (d['cells'][r][c] == old[i]), (num, i)
         d['cells'][r][c] = ch
     p.update(word=new, category=CAPS[new][0], clue=CAPS[new][1], image=png(new))
-    json.dump(d, open(f, "w")); os.remove(f"art/hints/{old}.png")
+    json.dump(d, open(f, "w")); os.remove(f"hint_images/{old}.png")
 
 inplace("073", "PUMA", "ORCA")
 inplace("100", "JAGUAR", "FARMER")
@@ -36,5 +36,5 @@ for seed in range(1, 400):
         continue
     if not d['left_out']: break
 out = {k: d[k] for k in ("mode", "size", "cells", "starters", "placed")}
-json.dump(out, open("data/puzzles/007.json", "w")); os.remove("art/hints/JEEP.png")
+json.dump(out, open("data/puzzles/007.json", "w")); os.remove("hint_images/JEEP.png")
 print("seed", seed, [p['word'] for p in d['placed']])
