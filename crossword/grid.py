@@ -92,7 +92,13 @@ def _number(placed: list[tuple[Entry, int, int, bool]]) -> list[Placed]:
     return out
 
 
-def generate(entries: list[Entry], size: int, seed: int) -> Puzzle | None:
+def generate(
+    entries: list[Entry],
+    size: int,
+    seed: int,
+    min_words: int = MIN_WORDS,
+    free_start: bool = False,
+) -> Puzzle | None:
     rng = random.Random(seed)
     pool = [e for e in entries if len(e.word) <= size]
     rng.shuffle(pool)
@@ -102,9 +108,17 @@ def generate(entries: list[Entry], size: int, seed: int) -> Puzzle | None:
 
     first = pool[0]
     cells = [[EMPTY] * size for _ in range(size)]
+    first_across = True
     row, col = size // 2, (size - len(first.word)) // 2
-    cells = _write(cells, first.word, row, col, True)
-    placed = [(first, row, col, True)]
+    if free_start:  # let the longest word start anywhere so several long words can cross it
+        first_across = rng.random() < 0.5
+        room = size - len(first.word) + 1
+        if first_across:
+            row, col = rng.randrange(size), rng.randrange(room)
+        else:
+            row, col = rng.randrange(room), rng.randrange(size)
+    cells = _write(cells, first.word, row, col, first_across)
+    placed = [(first, row, col, first_across)]
     used = {first.word}
 
     progress = True
@@ -126,7 +140,7 @@ def generate(entries: list[Entry], size: int, seed: int) -> Puzzle | None:
                     progress = True
                     break
 
-    if len(placed) < MIN_WORDS:
+    if len(placed) < min_words:
         return None
     return Puzzle(size, cells, _number(placed))
 

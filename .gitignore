@@ -17,3 +17,6 @@ docs/
 
 # Isolated implementation worktrees
 .worktrees/
+
+# Working plan (local only)
+PLAN.md

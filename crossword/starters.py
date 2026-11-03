@@ -17,20 +17,22 @@ def _at(pl: Placed, index: int) -> tuple[int, int]:
     return pl.row + index, pl.col
 
 
-def _covered(puzzle: Puzzle, cells: set[tuple[int, int]]) -> bool:
-    return all(word_cells(pl) & cells for pl in puzzle.placed)
-
-
-def _trim_hard(puzzle: Puzzle, cells: set[tuple[int, int]]) -> set[tuple[int, int]]:
-    cells = set(cells)
-    while cells and _covered(puzzle, cells):
-        removable = []
-        for cell in sorted(cells):
-            users = [pl for pl in puzzle.placed if cell in word_cells(pl)]
-            if users and all(len(word_cells(pl) & cells) > 1 for pl in users):
-                removable.append(cell)
-        victim = removable[0] if removable else sorted(cells)[0]
-        cells.remove(victim)
+def _hard_cells(puzzle: Puzzle) -> set[tuple[int, int]]:
+    """Fewest letters that still show one letter in every word, using crossings where
+    possible, plus the middle letter of every long (7-8 letter) word."""
+    bare = list(puzzle.placed)
+    cells: set[tuple[int, int]] = set()
+    while bare:
+        users: dict[tuple[int, int], int] = {}
+        for pl in bare:
+            for cell in word_cells(pl):
+                users[cell] = users.get(cell, 0) + 1
+        best = max(sorted(users), key=lambda cell: users[cell])
+        cells.add(best)
+        bare = [pl for pl in bare if best not in word_cells(pl)]
+    for pl in puzzle.placed:
+        if len(pl.entry.word) >= 7:
+            cells.add(_at(pl, len(pl.entry.word) // 2))
     return cells
 
 
@@ -39,13 +41,11 @@ def starter_cells(puzzle: Puzzle, mode: str) -> set[tuple[int, int]]:
         cells = set()
         for pl in puzzle.placed:
             cells.add(_at(pl, 0))
-            if len(pl.entry.word) >= 6:
+            if len(pl.entry.word) >= 5:
                 cells.add(_at(pl, len(pl.entry.word) // 2))
         return cells
     if mode == "medium":
         return {_at(pl, len(pl.entry.word) // 2) for pl in puzzle.placed}
     if mode == "hard":
-        ordered = sorted(puzzle.placed, key=lambda pl: (pl.number, 0 if pl.across else 1))
-        cells = {_at(pl, len(pl.entry.word) // 2) for pl in ordered[::2]}
-        return _trim_hard(puzzle, cells)
+        return _hard_cells(puzzle)
     raise ValueError(f"unknown mode {mode}")

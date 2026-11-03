@@ -1,0 +1,244 @@
+[
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 5,
+  "words": [
+   "TUNDRA",
+   "SEAWEED",
+   "COTTAGE",
+   "ANVIL",
+   "CORAL"
+  ]
+ },
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 5,
+  "words": [
+   "MEERKAT",
+   "CLAW",
+   "CYMBAL",
+   "BAKERY",
+   "CHEF"
+  ]
+ },
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 6,
+  "words": [
+   "GATE",
+   "SHIN",
+   "FOG",
+   "WALRUS",
+   "BROWNIE",
+   "ANCHOR"
+  ]
+ },
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 6,
+  "words": [
+   "ELM",
+   "NOSTRIL",
+   "ROSE",
+   "APRICOT",
+   "OPOSSUM",
+   "BOBCAT"
+  ]
+ },
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 7,
+  "words": [
+   "NECK",
+   "IGLOO",
+   "STOVE",
+   "GONG",
+   "MANGO",
+   "LEMUR",
+   "OAR"
+  ]
+ },
+ {
+  "mode": "easy",
+  "size": 7,
+  "n": 7,
+  "words": [
+   "BOLT",
+   "OCEAN",
+   "TAIL",
+   "BUGLE",
+   "GUAVA",
+   "MOAT",
+   "BAKER"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 5,
+  "words": [
+   "NEEDLE",
+   "MAST",
+   "TEAPOT",
+   "BUFFALO",
+   "WALNUT"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 6,
+  "words": [
+   "MAPLE",
+   "RACCOON",
+   "BARN",
+   "ASTEROID",
+   "TUXEDO",
+   "EYELASH"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 6,
+  "words": [
+   "ALMOND",
+   "CACTUS",
+   "CHEETAH",
+   "LYCHEE",
+   "MECHANIC",
+   "CLARINET"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 7,
+  "words": [
+   "ORCHID",
+   "FACTORY",
+   "HOOF",
+   "YOGURT",
+   "SPONGE",
+   "ARCHERY",
+   "SUNRISE"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 8,
+  "words": [
+   "HEEL",
+   "PLUNGER",
+   "SAUCER",
+   "CRADLE",
+   "LUTE",
+   "COYOTE",
+   "EYEBROW",
+   "MEATBALL"
+  ]
+ },
+ {
+  "mode": "medium",
+  "size": 8,
+  "n": 8,
+  "words": [
+   "TORNADO",
+   "LASAGNA",
+   "CLAM",
+   "TUSK",
+   "PAW",
+   "SPARROW",
+   "JUNGLE",
+   "SAIL"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "TONGUE",
+   "CEDAR",
+   "ROWBOAT",
+   "PEANUT",
+   "CHAIN"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "CEREAL",
+   "CRATER",
+   "FROST",
+   "WASP",
+   "BADGE",
+   "WINDOW"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "TURBAN",
+   "HORN",
+   "SINGER",
+   "SHRIMP",
+   "SLEIGH",
+   "CABIN"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "TROMBONE",
+   "OATMEAL",
+   "NECKLACE",
+   "MEADOW",
+   "WHEEL",
+   "HOCKEY",
+   "TEACUP"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "PICKLE",
+   "MANE",
+   "CHIPMUNK",
+   "SUNSET",
+   "GLASSES",
+   "TEACHER",
+   "BRICK",
+   "GEAR"
+  ]
+ },
+ {
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "SLEET",
+   "BOWLING",
+   "CHIN",
+   "TEMPLE",
+   "LADDER",
+   "BUTCHER",
+   "JAGUAR",
+   "THUNDER"
+  ]
+ }
+]

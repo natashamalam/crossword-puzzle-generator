@@ -13,8 +13,9 @@ PT = 72
 BACKGROUND = (0.99, 0.96, 0.86)
 INK = (0.12, 0.16, 0.30)
 CELL_COLORS = [(0.96, 0.62, 0.20), (0.30, 0.65, 0.55), (0.35, 0.55, 0.85), (0.90, 0.45, 0.55)]
-BLURB = ("Fun animal crossword puzzles for young puzzle solvers. "
-         "Big, easy-to-read letters and clues. Answers are included at the back.")
+BLURB = ("100 picture-clue crossword puzzles that give young minds a memory workout. "
+         "Each puzzle has a theme, hint pictures and short clues. "
+         "Starter letters help along the way. Answers are included at the back.")
 
 
 def spine_width_in(page_count: int) -> float:

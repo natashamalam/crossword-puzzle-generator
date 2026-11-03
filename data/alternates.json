@@ -1,0 +1,57 @@
+{
+  "PIG": [
+    "HOG"
+  ],
+  "BOAT": [
+    "SHIP"
+  ],
+  "SHIP": [
+    "BOAT"
+  ],
+  "CUP": [
+    "MUG"
+  ],
+  "PANTS": [
+    "JEANS"
+  ],
+  "HAT": [
+    "CAP"
+  ],
+  "CAP": [
+    "HAT"
+  ],
+  "POT": [
+    "PAN"
+  ],
+  "BEAN": [
+    "PEAS"
+  ],
+  "CHAIR": [
+    "STOOL",
+    "BENCH"
+  ],
+  "BOWL": [
+    "DISH"
+  ],
+  "FOAL": [
+    "COLT"
+  ],
+  "CLOCK": [
+    "WATCH"
+  ],
+  "TOAD": [
+    "FROG"
+  ],
+  "FROG": [
+    "TOAD"
+  ],
+  "CANOE": [
+    "KAYAK"
+  ],
+  "PAN": [
+    "POT"
+  ],
+  "BOOT": [
+    "SHOE"
+  ]
+}

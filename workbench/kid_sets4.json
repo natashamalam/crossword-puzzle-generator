@@ -1,0 +1,702 @@
+[
+ {
+  "title": "Flowers",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "LILY",
+   "JASMINE",
+   "PANSY",
+   "TULIP",
+   "LOTUS"
+  ]
+ },
+ {
+  "title": "Bakery",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "OVEN",
+   "BAGEL",
+   "DOUGH",
+   "WHEAT",
+   "CUPCAKE"
+  ]
+ },
+ {
+  "title": "Music II",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "TUBA",
+   "PIANO",
+   "VIOLIN",
+   "TRIANGLE",
+   "BELLS"
+  ]
+ },
+ {
+  "title": "Celebration",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "BANNER",
+   "FIREWORK",
+   "LANTERN",
+   "COSTUME",
+   "CARD"
+  ]
+ },
+ {
+  "title": "Shapes",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "CONE",
+   "SPHERE",
+   "CYLINDER",
+   "PYRAMID",
+   "CRESCENT"
+  ]
+ },
+ {
+  "title": "Trees",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "WILLOW",
+   "OAK",
+   "ROOT",
+   "BRANCH",
+   "BARK",
+   "TRUNK"
+  ]
+ },
+ {
+  "title": "Rooms",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "CELLAR",
+   "KITCHEN",
+   "GARAGE",
+   "ATTIC",
+   "PANTRY",
+   "BALCONY"
+  ]
+ },
+ {
+  "title": "Tools 2",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "HAMMER",
+   "AXE",
+   "PLIERS",
+   "SHOVEL",
+   "TOOLBOX",
+   "TAPE"
+  ]
+ },
+ {
+  "title": "Treasure",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "SWORD",
+   "PIRATE",
+   "JEWEL",
+   "CHEST",
+   "COIN",
+   "CROWN"
+  ]
+ },
+ {
+  "title": "Body",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "ELBOW",
+   "THUMB",
+   "TOOTH",
+   "KNEE",
+   "ANKLE",
+   "WRIST"
+  ]
+ },
+ {
+  "title": "Playground",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "SANDBOX",
+   "CHALK",
+   "FOUNTAIN",
+   "HELMET",
+   "SANDAL",
+   "BENCH"
+  ]
+ },
+ {
+  "title": "Jobs",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "DENTIST",
+   "DIVER",
+   "MINER",
+   "PILOT",
+   "PLUMBER",
+   "SAILOR"
+  ]
+ },
+ {
+  "title": "Places",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "MUSEUM",
+   "BRIDGE",
+   "LIBRARY",
+   "TUNNEL",
+   "HARBOR",
+   "STADIUM"
+  ]
+ },
+ {
+  "title": "Circus",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "MAGICIAN",
+   "JUGGLER",
+   "CLOWN",
+   "POPCORN",
+   "HOOP",
+   "STAGE"
+  ]
+ },
+ {
+  "title": "Toys",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "PUPPET",
+   "RATTLE",
+   "PUZZLE",
+   "MARBLE",
+   "SPINNER",
+   "BLOCK"
+  ]
+ },
+ {
+  "title": "Trip",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "SUITCASE",
+   "TICKET",
+   "PIER",
+   "ISLAND",
+   "BEACH",
+   "AIRPORT",
+   "POSTCARD"
+  ]
+ },
+ {
+  "title": "Animals B",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "TORTOISE",
+   "LEOPARD",
+   "PELICAN",
+   "GORILLA",
+   "STORK",
+   "MOLE",
+   "MOOSE"
+  ]
+ },
+ {
+  "title": "Kitchen B",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "SAUCEPAN",
+   "TEASPOON",
+   "SPATULA",
+   "GRATER",
+   "PEELER",
+   "JUG",
+   "PAN"
+  ]
+ },
+ {
+  "title": "Garden B",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "BEEHIVE",
+   "POPPY",
+   "CLOVER",
+   "IVY",
+   "PEACOCK",
+   "BIRDBATH",
+   "SHED"
+  ]
+ },
+ {
+  "title": "Food",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "BROCCOLI",
+   "AVOCADO",
+   "PRETZEL",
+   "OMELET",
+   "SALAD",
+   "NOODLE",
+   "OLIVE"
+  ]
+ },
+ {
+  "title": "Animals A",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "REINDEER",
+   "SHEEPDOG",
+   "BLUEBIRD",
+   "SKUNK",
+   "PUMA",
+   "BISON",
+   "BADGER",
+   "TAPIR"
+  ]
+ },
+ {
+  "title": "Small creatures",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "MOSQUITO",
+   "SCORPION",
+   "SNAIL",
+   "TROUT",
+   "GNAT",
+   "ANT",
+   "HAMSTER",
+   "PUPPY"
+  ]
+ },
+ {
+  "title": "Snacks",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "LOLLIPOP",
+   "SUSHI",
+   "SALSA",
+   "WAFFLE",
+   "CARAMEL",
+   "CIDER",
+   "CANDY",
+   "RAISINS"
+  ]
+ },
+ {
+  "title": "Vegetables",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "SPINACH",
+   "RADISH",
+   "OKRA",
+   "CHILI",
+   "BEETROOT",
+   "SQUASH",
+   "TURNIP",
+   "EGGPLANT"
+  ]
+ },
+ {
+  "title": "Nature",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "DAFFODIL",
+   "RAINDROP",
+   "PINECONE",
+   "GLACIER",
+   "FERN",
+   "ACORN",
+   "CLIFF",
+   "VALLEY"
+  ]
+ },
+ {
+  "title": "Around the house",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "FEATHER",
+   "SHOULDER",
+   "ARROW",
+   "PICTURE",
+   "BLANKET",
+   "RIBBON",
+   "BUCKLE",
+   "STAIRS"
+  ]
+ },
+ {
+  "title": "House",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "DOORBELL",
+   "PORCH",
+   "VASE",
+   "STOOL",
+   "MAILBOX",
+   "BASKET",
+   "DOGHOUSE",
+   "CHIMNEY"
+  ]
+ },
+ {
+  "title": "Transport",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "CARAVAN",
+   "FERRY",
+   "TRAILER",
+   "DIGGER",
+   "YACHT",
+   "TRACTOR",
+   "TROLLEY",
+   "STEAMER"
+  ]
+ },
+ {
+  "title": "Winter clothes",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "SWEATER",
+   "HOOD",
+   "APRON",
+   "SLIPPERS",
+   "WOOL",
+   "BOOT",
+   "SHORTS",
+   "PAJAMAS"
+  ]
+ },
+ {
+  "title": "Desk",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "KEYBOARD",
+   "ENVELOPE",
+   "CLIP",
+   "FOLDER",
+   "NOTEPAD",
+   "LABEL",
+   "INK",
+   "PEN"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 5,
+  "words": [
+   "TUNDRA",
+   "SEAWEED",
+   "COTTAGE",
+   "CORAL",
+   "MARKER"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 5,
+  "words": [
+   "CLAW",
+   "CYMBAL",
+   "BAKERY",
+   "CHEF",
+   "JACKET"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 6,
+  "words": [
+   "GATE",
+   "FOG",
+   "WALRUS",
+   "ANCHOR",
+   "BELLY",
+   "OCTOPUS"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 6,
+  "words": [
+   "ELM",
+   "NOSTRIL",
+   "ROSE",
+   "APRICOT",
+   "OPOSSUM",
+   "MOP"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 7,
+  "words": [
+   "NECK",
+   "IGLOO",
+   "STOVE",
+   "GONG",
+   "MANGO",
+   "LEMUR",
+   "OAR"
+  ]
+ },
+ {
+  "title": "mixed easy",
+  "mode": "easy",
+  "size": 7,
+  "n": 7,
+  "words": [
+   "OCEAN",
+   "TAIL",
+   "GUAVA",
+   "MOAT",
+   "BAKER",
+   "BUG",
+   "LEG"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 5,
+  "words": [
+   "NEEDLE",
+   "TEAPOT",
+   "BUFFALO",
+   "WALNUT",
+   "TABLE"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 6,
+  "words": [
+   "MAPLE",
+   "RACCOON",
+   "BARN",
+   "ASTEROID",
+   "EYELASH",
+   "BREAD"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 6,
+  "words": [
+   "ALMOND",
+   "CACTUS",
+   "CHEETAH",
+   "LYCHEE",
+   "MECHANIC",
+   "PAPER"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 7,
+  "words": [
+   "ORCHID",
+   "FACTORY",
+   "HOOF",
+   "YOGURT",
+   "SPONGE",
+   "ARCHERY",
+   "SUNRISE"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 8,
+  "words": [
+   "CRADLE",
+   "EYEBROW",
+   "MEATBALL",
+   "BOX",
+   "TOE",
+   "BEE",
+   "ROPE",
+   "ROOSTER"
+  ]
+ },
+ {
+  "title": "mixed medium",
+  "mode": "medium",
+  "size": 8,
+  "n": 8,
+  "words": [
+   "TORNADO",
+   "LASAGNA",
+   "CLAM",
+   "TUSK",
+   "PAW",
+   "SPARROW",
+   "JUNGLE",
+   "SAIL"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 5,
+  "words": [
+   "TONGUE",
+   "CEDAR",
+   "ROWBOAT",
+   "PEANUT",
+   "CHAIN"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "CEREAL",
+   "FROST",
+   "WASP",
+   "BADGE",
+   "WINDOW",
+   "PARADE"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 6,
+  "words": [
+   "HORN",
+   "SINGER",
+   "SHRIMP",
+   "SLEIGH",
+   "CABIN",
+   "DONUT"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 7,
+  "words": [
+   "TROMBONE",
+   "OATMEAL",
+   "NECKLACE",
+   "MEADOW",
+   "WHEEL",
+   "HOCKEY",
+   "TEACUP"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "PICKLE",
+   "MANE",
+   "CHIPMUNK",
+   "SUNSET",
+   "GLASSES",
+   "TEACHER",
+   "BRICK",
+   "GEAR"
+  ]
+ },
+ {
+  "title": "mixed hard",
+  "mode": "hard",
+  "size": 9,
+  "n": 8,
+  "words": [
+   "SLEET",
+   "BOWLING",
+   "CHIN",
+   "TEMPLE",
+   "LADDER",
+   "BUTCHER",
+   "JAGUAR",
+   "THUNDER"
+  ]
+ }
+]
